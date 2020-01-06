@@ -69,7 +69,7 @@ def run_spark_job(spark: SparkSession, bootstrap_server: str, topic_name: str) -
 
     query.awaitTermination()
 
-    radio_code_json_filepath = "radio_code.json"
+    radio_code_json_filepath = "data/radio_code.json"
     radio_code_df = spark.read.json(radio_code_json_filepath)
 
     radio_code_df = radio_code_df.withColumnRenamed("disposition_code", "disposition")
