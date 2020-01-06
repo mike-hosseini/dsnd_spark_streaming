@@ -6,7 +6,7 @@ from confluent_kafka.admin import AdminClient
 PARENT_DIR: Path = Path(__file__).parents[0]
 
 config: ConfigParser = ConfigParser()
-config.read(PARENT_DIR / "config.ini")
+config.read(PARENT_DIR / "config" / "config.ini")
 
 
 def topic_exists(topic: str) -> bool:

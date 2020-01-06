@@ -1,7 +1,6 @@
 """Kafka consumer client for ingesting Kafka event data"""
 import logging
 import time
-from random import randint
 from typing import Any, List
 
 import confluent_kafka

@@ -4,15 +4,15 @@ import logging.config
 from configparser import ConfigParser
 from pathlib import Path
 
+import logsetup
 import producer_server
 
 PARENT_DIR: Path = Path(__file__).parents[0]
 
-logging.config.fileConfig(PARENT_DIR / "logging.ini")
 logger: logging.Logger = logging.getLogger(__name__)
 
 config: ConfigParser = ConfigParser()
-config.read(PARENT_DIR / "config.ini")
+config.read(PARENT_DIR / "config" / "config.ini")
 
 
 def run_kafka_server(

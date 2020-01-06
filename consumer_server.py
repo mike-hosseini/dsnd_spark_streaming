@@ -14,7 +14,7 @@ logger: logging.Logger = logging.getLogger(__name__)
 logging.getLogger("confluent_kafka").setLevel(logging.NOTSET)
 
 config: ConfigParser = ConfigParser()
-config.read(PARENT_DIR / "config.ini")
+config.read(PARENT_DIR / "config" / "config.ini")
 
 
 def main() -> None:
