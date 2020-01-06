@@ -1,25 +1,27 @@
-from kafka import KafkaProducer
+"""Kafka producer client for ingesting JSON event data"""
 import json
+import logging
 import time
+
+from kafka import KafkaProducer
+
+logger = logging.getLogger(__name__)
 
 
 class ProducerServer(KafkaProducer):
-
-    def __init__(self, input_file, topic, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, input_file: str, topic: str, **kwargs) -> None:
+        """Creates producer object for synchronous use"""
+        super().__init__(
+            value_serializer=lambda v: json.dumps(v).encode("utf-8"), **kwargs
+        )
         self.input_file = input_file
         self.topic = topic
 
-    #TODO we're generating a dummy data
-    def generate_data(self):
-        with open(self.input_file) as f:
-            for line in f:
-                message = self.dict_to_binary(line)
-                # TODO send the correct data
-                self.send()
+    def generate_data(self) -> None:
+        """Generate data using input JSON data"""
+        with open(file=self.input_file) as f:
+            json_lines = json.loads(f.read())
+            logger.debug(f"processing {len(json_lines)} events")
+            for line in json_lines:
+                self.send(self.topic, line)
                 time.sleep(1)
-
-    # TODO fill this in to return the json dictionary to binary
-    def dict_to_binary(self, json_dict):
-        return 
-        
