@@ -88,8 +88,11 @@ if __name__ == "__main__":
     logger = logging.getLogger(__name__)
 
     spark = (
-        SparkSession.builder.master("local[*]")
+        SparkSession
+        .builder
+        .master("local[*]")
         .appName("KafkaSparkStructuredStreaming")
+        .config("spark.ui.port", "3000")
         .getOrCreate()
     )
 
